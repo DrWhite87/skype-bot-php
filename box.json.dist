@@ -1,0 +1,23 @@
+{
+  "chmod": "0755",
+  "directories": [
+    "src"
+  ],
+  "files": [
+    "LICENSE"
+  ],
+  "finder": [
+    {
+      "name": "*.php",
+      "exclude": ["Tests"],
+      "in": "vendor"
+    }
+  ],
+  "replacements": {
+    "tag": "1.0.0"
+  },
+  "git-version": "package_version",
+  "main": "bin/skype",
+  "output": "build/skype.phar",
+  "stub": true
+}
