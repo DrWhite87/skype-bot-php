@@ -15,7 +15,7 @@ final class Config
     /**
      * @var Auth uri
      */
-    private $_authUri = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+    private $_authUri = 'https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
     /**
      * @var Base uri
      */
@@ -30,9 +30,9 @@ final class Config
     private $_fileTokenStoragePath;
 
     /**
-      * @var Token storage interface
-      */
-     private $_tokenStorageClass;
+     * @var Token storage interface
+     */
+    private $_tokenStorageClass;
     /**
      * Constructor
      *

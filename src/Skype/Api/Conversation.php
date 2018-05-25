@@ -13,11 +13,6 @@ class Conversation extends BaseApi implements ApiInterface
      */
     public function activity($target, $content)
     {
-        return $this->request('POST', '/v3/conversations/' . $target . '/activities', [
-            'json' => [
-                "type" => "message/text",
-                "text" => $content
-            ]
-        ]);
+        return $this->request('POST', '/v3/conversations/' . $target . '/activities', ['json' =>  $content ]);
     }
 }

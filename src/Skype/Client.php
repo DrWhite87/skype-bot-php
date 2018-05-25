@@ -49,20 +49,23 @@ class Client
 
     /**
      * Client constructor.
-     * @param array                $config
+     * @param array $config
      * @param OutputInterface|null $output
-     * @param InputInterface|null  $input
+     * @param InputInterface|null $input
      * @param ClientInterface|null $client
      */
     public function __construct(array $config = [], LoggerInterface $logger = null, OutputInterface $output = null, ClientInterface $client = null)
     {
         $this->config = new Config($config);
-        try {
-            $class = $this->config->get('tokenStorageClass');
+
+        $class = $this->config->get('tokenStorageClass');
+        if ($class) {
             $this->tokenStorage = new $class();
-        } catch (SkypeException $exception) {
+        } else {
             $this->tokenStorage = new FileTokenStorage($this->config->get('fileTokenStoragePath'));
         }
+
+
         $this->logger = $logger;
         $this->output = $output;
 
@@ -89,13 +92,14 @@ class Client
      */
     public function auth()
     {
+
         $this->handlerStack->remove('reAuth');
         $res = $this->client->post($this->config->get('authUri'), [
             'form_params' => [
-                'client_id' => $this->config->get('clientId'),
-                'client_secret' => $this->config->get('clientSecret'),
                 'grant_type' => 'client_credentials',
-                'scope' => 'https://graph.microsoft.com/.default'
+                'client_id' => config('settings.skype.client_id'),
+                'client_secret' => config('settings.skype.client_secret'),
+                'scope' => 'https://api.botframework.com/.default'
             ]
         ]);
 
@@ -123,7 +127,7 @@ class Client
     }
 
     /**
-     * @param  ClientInterface|null               $client
+     * @param  ClientInterface|null $client
      * @return \GuzzleHttp\Client|ClientInterface
      */
     private function initializeHttpClient(ClientInterface $client = null)
@@ -187,7 +191,7 @@ class Client
             }
 
             if (
-                ($this->tokenStorage->read('expires_in') < ($now->getTimestamp() + 600))
+            ($this->tokenStorage->read('expires_in') < ($now->getTimestamp() + 600))
             ) {
                 $this->log('<info>You should re-auth in the following 10 minutes.</info>');
             }
