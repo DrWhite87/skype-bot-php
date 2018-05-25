@@ -5,22 +5,12 @@
 ## Installation
 
 There are 2 ways to install it: 
- 
-  - Download the Phar
   - Install as a Composer Package
-
-### Download the Phar
-
-download the latest version from the [Releases section](https://github.com/radutopala/skype-bot-php/releases/latest) or from the cli:
-
-```
-$ wget https://github.com/radutopala/skype-bot-php/releases/download/1.0.0/skype.phar && chmod +x skype.phar
-```
 
 ### Install as a Composer Package
 
 ```
-$ composer require radutopala/skype-bot-php
+$ composer require dr-white87/skype-bot-php --dev
 ```
 
 ## Usage
